@@ -210,7 +210,9 @@
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Estado HTTP 204\", function () { pm.response.to.have.status(204); });"
+              "pm.test(\"Estado HTTP 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Mensaje de eliminación\", function () { pm.expect(pm.response.json().mensaje).to.eql(\"Mascota eliminada correctamente.\"); });",
+              "pm.test(\"ID eliminado\", function () { pm.expect(pm.response.json().id).to.eql(Number(pm.collectionVariables.get(\"mascota_id\"))); });"
             ]
           }
         }

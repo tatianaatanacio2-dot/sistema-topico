@@ -58,7 +58,7 @@ Importa `Veterinaria.postman_collection.json` con **Import → Files**. La colec
 | POST | `{{base_url}}/mascotas` | 201, mascota creada y cabecera Location |
 | GET | `{{base_url}}/mascotas/{{mascota_id}}` | 200, una mascota |
 | PUT | `{{base_url}}/mascotas/{{mascota_id}}` | 200, mascota actualizada |
-| DELETE | `{{base_url}}/mascotas/{{mascota_id}}` | 204, sin cuerpo |
+| DELETE | `{{base_url}}/mascotas/{{mascota_id}}` | 200, JSON con mensaje de eliminación e ID |
 
 En solicitudes POST y PUT manuales selecciona **Body → raw → JSON** y pega el ejemplo. Postman enviará `Content-Type: application/json`.
 

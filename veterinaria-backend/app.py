@@ -164,7 +164,7 @@ def create_app(config=None):
             if cursor.rowcount == 0:
                 abort(404, description='Mascota no encontrada.')
         db().commit()
-        return '', 204
+        return jsonify(mensaje='Mascota eliminada correctamente.', id=mascota_id), 200
 
     return app
 
@@ -173,4 +173,8 @@ app = create_app()
 
 if __name__ == '__main__':
     from waitress import serve
-    serve(app, host='127.0.0.1', port=int(os.getenv('PORT', '5000')))
+    port = int(os.getenv('PORT', '5000'))
+    print(f'API Veterinaria ejecutándose en http://127.0.0.1:{port}', flush=True)
+    print(f'Postman: GET http://127.0.0.1:{port}/mascotas', flush=True)
+    print('Mantén esta ventana abierta. Ctrl+C para detener el servidor.', flush=True)
+    serve(app, host='127.0.0.1', port=port)

@@ -41,7 +41,11 @@ class ApiTests(unittest.TestCase):
         updated = {**self.payload, 'nombres': "Luna O'Connor"}
         self.assertEqual(self.client.put(path, json=updated).status_code, 200)
         self.assertEqual(self.client.get(path).get_json()['nombres'], updated['nombres'])
-        self.assertEqual(self.client.delete(path).status_code, 204)
+        deleted = self.client.delete(path)
+        self.assertEqual(deleted.status_code, 200)
+        self.assertEqual(deleted.get_json(), {
+            'mensaje': 'Mascota eliminada correctamente.', 'id': mascota_id,
+        })
         self.assertEqual(self.client.get(path).status_code, 404)
         self.assertEqual(self.client.put(path, json=updated).status_code, 404)
         self.assertEqual(self.client.delete(path).status_code, 404)
