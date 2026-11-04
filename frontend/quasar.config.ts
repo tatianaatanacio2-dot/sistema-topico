@@ -45,7 +45,8 @@ export default defineConfig((/* ctx */) => {
       // https://v2.quasar.dev/quasar-cli-vite/page-routing-with-vue-router#filename-based-routing
       // filenameBasedRouting: true,
 
-      vueRouterMode: "hash" // available values: 'hash', 'history'
+      vueRouterMode: "hash",
+      publicPath: "./"
       // vueRouterBase,
 
       // publicPath: '/',
@@ -71,12 +72,15 @@ export default defineConfig((/* ctx */) => {
     devServer: {
       // vueDevtools: true,
       // https: true,
-      open: true // opens browser window automatically
+      open: false,
+      port: 9000,
+      proxy: { "/api": { target: "http://127.0.0.1:8000", changeOrigin: true } }
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework
     framework: {
       config: {},
+      lang: "es",
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -89,7 +93,7 @@ export default defineConfig((/* ctx */) => {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: ["Notify"]
     },
 
     // animations: 'all', // --- includes all animations

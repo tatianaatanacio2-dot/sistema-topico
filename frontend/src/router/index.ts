@@ -7,6 +7,7 @@ import {
 } from "vue-router";
 
 import routes from "./routes";
+import { loadSession, session } from "@/services/api";
 
 /*
  * If not building with SSR mode, you can
@@ -34,5 +35,12 @@ export default defineRouter((/* { store, ssrContext } */) => {
     history: createHistory(import.meta.env.QUASAR_VUE_ROUTER_BASE)
   });
 
+  Router.beforeEach(async to => {
+    if (!session.ready) await loadSession();
+    if (!to.meta.public && !session.user) return "/ingresar";
+    if (to.path === "/ingresar" && session.user) return "/";
+    const roles = to.meta.roles as string[] | undefined;
+    if (roles && !roles.includes(session.user?.role)) return "/";
+  });
   return Router;
 });
